@@ -64,7 +64,7 @@ public class EndMenu : MonoBehaviour
         newPlayer.playerProfile = new PlayerProfile();
         newPlayer.playerProfile.email = emailInput.text;
         // make the phone numbers just the digits
-        newPlayer.playerProfile.phone_number = String.Concat(phoneInput.text.Where(c => !Char.IsDigit(c)));
+        newPlayer.playerProfile.phone_number = String.Concat(phoneInput.text.Where(c => Char.IsDigit(c)));
 
         PlayerEntry ejectedPlayer = dataManager.AddHighScore(highScoresList, newPlayer);
 

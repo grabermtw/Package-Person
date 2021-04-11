@@ -23,6 +23,14 @@ public class DataManager : MonoBehaviour
         messageMode = PlayerPrefs.GetInt("messageMode", 0);
     }
 
+    void Update()
+    {
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+    }
+
     public void SetMessageMode(int mode)
     {
         messageMode = mode;

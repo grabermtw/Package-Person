@@ -29,8 +29,8 @@ public class CourierNotifications : MonoBehaviour
             // only send to those who have moved in the leaderboard
             if (players[i].playerData.currentPlace != players[i].playerData.previousPlace)
             {
-                string email;
-                string phone;
+                string email = players[i].playerProfile.email;
+                string phone = players[i].playerProfile.phone_number;
                 if (dataManager.GetMessageMode() == 0) //unique mode
                 {
                     // don't spam people with emails/texts if they're on the leaderboard multiple times    
@@ -40,7 +40,6 @@ public class CourierNotifications : MonoBehaviour
                     }
                     else
                     {
-                        email = players[i].playerProfile.email;
                         emailsSentToAlready.Add(email);
                     }
                     if (phonesTextedAlready.Contains(players[i].playerProfile.phone_number))
@@ -49,15 +48,8 @@ public class CourierNotifications : MonoBehaviour
                     }
                     else
                     {
-                        phone = players[i].playerProfile.phone_number;
                         phonesTextedAlready.Add(phone);
                     }
-                }
-                else
-                {
-                    // just send it all to everyone
-                    email = players[i].playerProfile.email;
-                    phone = players[i].playerProfile.phone_number;
                 }
 
                 WWWForm form = new WWWForm();

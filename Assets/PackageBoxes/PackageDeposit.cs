@@ -17,10 +17,13 @@ public class PackageDeposit : MonoBehaviour
     public Material openForDelivery;
     public Material closedForDelivery;
     public float coolDownTime = 15;
+    public AudioClip depositSound;
+    private AudioSource source;
 
     // Start is called before the first frame update
     void Start()
     {
+        source = GetComponent<AudioSource>();
         rend = GetComponent<Renderer>();
         playerCourier = (PackageCourier)FindObjectOfType(typeof(PackageCourier));
         manager = (GameplayManager)FindObjectOfType(typeof(GameplayManager));
@@ -47,6 +50,7 @@ public class PackageDeposit : MonoBehaviour
             playerCourier.DeliveredPackage();
             manager.IncrementScore();
             StartCoroutine(TemporaryClosure());
+            source.PlayOneShot(depositSound);
         }
     }
 
