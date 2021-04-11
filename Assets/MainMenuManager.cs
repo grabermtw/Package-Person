@@ -32,7 +32,6 @@ public class MainMenuManager : MonoBehaviour
         currentQual = QualitySettings.GetQualityLevel();
         numQualLevels = QualitySettings.names.Length;
         qualityText.text = "Graphics Quality: " + (currentQual + 1) + " out of " + (numQualLevels);
-        highScoresText.text = dataManager.HighScoresToString(dataManager.GetHighScoresList());
     }
 
     public void StartGame()
@@ -69,6 +68,7 @@ public class MainMenuManager : MonoBehaviour
                 break;
             case 2:
                 highScoresPanel.SetActive(true);
+                highScoresText.text = dataManager.HighScoresToString(dataManager.GetHighScoresList());
                 break;
             case 3:
                 howToPlayPanel.SetActive(true);
