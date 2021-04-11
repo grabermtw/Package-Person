@@ -8,6 +8,8 @@ public class PackageCourier : MonoBehaviour
     public Transform carryParent;
     private Movement movement;
     public TextMeshProUGUI inGameText;
+    public float carryingRunSpeed = 4.5f;
+    public float runSpeed = 6f;
     private Rigidbody rb;
     private bool carrying = false;
     private Animator anim;
@@ -21,12 +23,6 @@ public class PackageCourier : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         movement = GetComponent<Movement>();
         inGameText.enabled = false;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void Action()
@@ -52,6 +48,32 @@ public class PackageCourier : MonoBehaviour
                 anim.SetLayerWeight(1,0);
                 carrying = false;
                 package = null;
+            }
+        }
+    }
+
+    public float GetRunSpeed()
+    {
+        if (carrying)
+            return carryingRunSpeed;
+        else
+            return runSpeed;
+    }
+
+    // Called by a package deposit if you run into the deposit with the package.
+    public void DeliveredPackage()
+    {
+        if (carrying)
+        {
+            carrying = false;
+            anim.SetLayerWeight(1,0);
+            package = null;
+        }
+        else
+        {
+            if (package == null)
+            {
+                inGameText.enabled = false;
             }
         }
     }

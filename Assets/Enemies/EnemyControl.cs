@@ -10,7 +10,7 @@ public class EnemyControl : MonoBehaviour
     public float roamingTimerMin = 3f;
     public float detectionRadius = 15f;
     public Transform packagePerson;
-    public GameManager manager;
+    public GameplayManager manager;
     public AudioClip[] voiceLines;
 
     
@@ -28,7 +28,7 @@ public class EnemyControl : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         
         StartCoroutine(BehaviorControl());
-        StartCoroutine(Speak());
+        //StartCoroutine(Speak());
 
         // Calculate the base offset adjustment using the capsule collider
         CapsuleCollider capsule = GetComponent<CapsuleCollider>();
@@ -41,7 +41,7 @@ public class EnemyControl : MonoBehaviour
         {
             while (true)
             {
-                yield return new WaitForSeconds(Random.Range(4, 15));
+                yield return new WaitForSeconds(Random.Range(9, 25));
                 audioSource.PlayOneShot(voiceLines[Random.Range(0, voiceLines.Length)]);
                 yield return null;
             }
@@ -101,6 +101,7 @@ public class EnemyControl : MonoBehaviour
         if (isHunting)
             yield break;
         isHunting = true;
+        audioSource.PlayOneShot(voiceLines[Random.Range(0, voiceLines.Length)]);
         while (isHunting)
         {
             nav.SetDestination(packagePerson.position);

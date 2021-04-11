@@ -9,7 +9,7 @@ public class Movement : MonoBehaviour
     public float Direction { get => actualVelocity == Vector3.zero ? 0f : Mathf.Abs(Quaternion.LookRotation(actualVelocity, Vector3.up).eulerAngles.y - characterMesh.transform.rotation.eulerAngles.y); }
 
     public float jumpForce = 300f;
-    public float runSpeed = 5f;
+    private PackageCourier packageCourier;
     public float rotationSpeed = 10f;
 
     private CameraController cameraController;
@@ -39,6 +39,7 @@ public class Movement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        packageCourier = GetComponent<PackageCourier>();
         anim = GetComponentInChildren<Animator>();
         cameraController = GetComponentInChildren<CameraController>();
         rb = GetComponent<Rigidbody>();
@@ -82,7 +83,7 @@ public class Movement : MonoBehaviour
         if (velocity.magnitude > 0)
         {
             rb.velocity = new Vector3(velocity.normalized.x * smoothSpeed, rb.velocity.y, velocity.normalized.z * smoothSpeed);
-            smoothSpeed = Mathf.Lerp(smoothSpeed, runSpeed * bonusSpeed, Time.deltaTime);
+            smoothSpeed = Mathf.Lerp(smoothSpeed, packageCourier.GetRunSpeed() * bonusSpeed, Time.deltaTime);
             // rotate the character mesh if enabled
             
             characterMesh.rotation = Quaternion.Lerp(characterMesh.rotation, Quaternion.LookRotation(velocity), Time.deltaTime * rotationSpeed);
